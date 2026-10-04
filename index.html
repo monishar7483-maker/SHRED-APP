@@ -1,339 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>SHRED SQUADERS | Secure Access</title>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        body {
-            min-height: 100vh;
-            background: #070b12;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .login-container {
-            width: 100%;
-            max-width: 420px;
-        }
-
-        .logo {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .logo-icon {
-            width: 65px;
-            height: 65px;
-            margin: auto;
-            border: 2px solid #19d3ff;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            box-shadow: 0 0 25px rgba(25, 211, 255, 0.15);
-        }
-
-        .logo h1 {
-            margin-top: 15px;
-            font-size: 27px;
-            letter-spacing: 2px;
-        }
-
-        .logo p {
-            margin-top: 8px;
-            color: #8993a4;
-            font-size: 13px;
-        }
-
-        .login-card {
-            background: #101620;
-            border: 1px solid #27313f;
-            border-radius: 18px;
-            padding: 30px;
-            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.35);
-        }
-
-        .login-card h2 {
-            font-size: 22px;
-            margin-bottom: 8px;
-        }
-
-        .login-card .subtitle {
-            color: #8993a4;
-            font-size: 14px;
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
-
-        .input-group {
-            margin-bottom: 18px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 13px;
-            color: #c8d0dc;
-        }
-
-        input {
-            width: 100%;
-            padding: 14px;
-            border-radius: 9px;
-            border: 1px solid #303b4a;
-            background: #080d14;
-            color: white;
-            outline: none;
-            font-size: 14px;
-        }
-
-        input:focus {
-            border-color: #19d3ff;
-            box-shadow: 0 0 0 2px rgba(25, 211, 255, 0.08);
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 14px;
-            margin-top: 5px;
-            border: none;
-            border-radius: 9px;
-            background: #19d3ff;
-            color: #041016;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .login-btn:hover {
-            background: #53ddff;
-        }
-
-        .forgot {
-            text-align: right;
-            margin: 14px 0 20px;
-        }
-
-        .forgot a {
-            color: #19d3ff;
-            font-size: 13px;
-            text-decoration: none;
-        }
-
-        .security-note {
-            margin-top: 22px;
-            padding: 12px;
-            border-radius: 9px;
-            background: #0b111a;
-            border: 1px solid #202b39;
-            color: #8d98a8;
-            font-size: 11px;
-            line-height: 1.5;
-            text-align: center;
-        }
-
-        .message {
-            display: none;
-            margin-top: 15px;
-            padding: 12px;
-            border-radius: 8px;
-            background: #182331;
-            color: #b9c5d4;
-            text-align: center;
-            font-size: 13px;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 20px;
-            color: #596575;
-            font-size: 11px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SHRED-APP · Sign in</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap">
+<style>
+:root{--ink:#0c1424;--panel:#131e33;--line:#26344f;--ice:#e6edf7;--mute:#8a9ab8;--iris:#7c8cff;--bad:#ff6b5e}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:radial-gradient(900px 500px at 50% -10%,#1a2a4d,var(--ink));color:var(--ice);font-family:'Bricolage Grotesque',system-ui,sans-serif;display:flex;align-items:center;justify-content:center;padding:20px}
+main{width:100%;max-width:380px}
+.eye{display:block;margin:0 auto 18px}
+h1{font-size:30px;font-weight:800;text-align:center;margin:0 0 4px;letter-spacing:.5px}
+p.sub{text-align:center;color:var(--mute);margin:0 0 26px;font-size:15px}
+form{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}
+label{display:block;font-size:14px;color:var(--mute);margin:0 0 6px}
+input{width:100%;background:var(--ink);border:1px solid var(--line);border-radius:8px;color:var(--ice);font:inherit;padding:12px;margin-bottom:16px}
+input:focus,button:focus-visible{outline:2px solid var(--iris);outline-offset:2px}
+.row{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--mute);margin:-4px 0 18px}
+.row input{width:auto;margin:0}
+button{width:100%;background:var(--iris);color:#0c1424;border:0;border-radius:8px;font:inherit;font-weight:800;padding:13px;cursor:pointer}
+button:disabled{opacity:.6}
+#err{color:var(--bad);font-size:14px;min-height:20px;margin:12px 0 0}
+footer{text-align:center;color:var(--mute);font-size:12.5px;margin-top:18px;line-height:1.5}
+</style>
 </head>
-
 <body>
+<main>
+  <svg class="eye" width="84" height="84" viewBox="0 0 84 84" aria-hidden="true">
+    <path d="M4 42C14 22 28 12 42 12s28 10 38 30c-10 20-24 30-38 30S14 62 4 42Z" fill="none" stroke="#7c8cff" stroke-width="3"/>
+    <circle cx="42" cy="42" r="15" fill="none" stroke="#e6edf7" stroke-width="3"/>
+    <circle cx="42" cy="42" r="6" fill="#7c8cff"/>
+  </svg>
+  <h1>SHRED-APP</h1>
+  <p class="sub">Secure, recover and erase evidence files</p>
 
-    <div class="login-container">
-
-        <!-- LOGO -->
-        <div class="logo">
-
-            <div class="logo-icon">
-                🛡️
-            </div>
-
-            <h1>SHRED SQUADERS</h1>
-
-            <p>
-                Cybersecurity & Digital Forensics
-            </p>
-
-        </div>
-
-
-        <!-- LOGIN CARD -->
-        <div class="login-card">
-
-            <h2>Secure Access</h2>
-
-            <p class="subtitle">
-                Sign in to securely access your forensic data
-                and investigation workspace.
-            </p>
-
-
-            <!-- EMAIL -->
-            <div class="input-group">
-
-                <label for="email">
-                    Professional Email
-                </label>
-
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="Enter your email"
-                >
-
-            </div>
-
-
-            <!-- PASSWORD -->
-            <div class="input-group">
-
-                <label for="password">
-                    Password
-                </label>
-
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Enter your password"
-                >
-
-            </div>
-
-
-            <!-- FORGOT PASSWORD -->
-            <div class="forgot">
-
-                <a href="#" onclick="forgotPassword()">
-                    Forgot password?
-                </a>
-
-            </div>
-
-
-            <!-- LOGIN -->
-            <button
-                class="login-btn"
-                onclick="login()">
-
-                SIGN IN SECURELY
-
-            </button>
-
-
-            <!-- MESSAGE -->
-            <div
-                class="message"
-                id="message">
-            </div>
-
-
-            <!-- SECURITY MESSAGE -->
-            <div class="security-note">
-
-                🔒 Authorized personnel only.<br>
-                Access to forensic and investigation data
-                is restricted to verified users.
-
-            </div>
-
-        </div>
-
-
-        <div class="footer">
-            SHRED SQUADERS © 2026
-        </div>
-
-    </div>
-
-
-    <script>
-
-        function login() {
-
-            const email =
-                document.getElementById("email").value;
-
-            const password =
-                document.getElementById("password").value;
-
-            const message =
-                document.getElementById("message");
-
-
-            if (email === "" || password === "") {
-
-                message.innerHTML =
-                    "⚠️ Please enter your email and password.";
-
-                message.style.display = "block";
-
-                return;
-            }
-
-
-            message.innerHTML =
-                "✓ Credentials received. Secure authentication will be connected next.";
-
-            message.style.display = "block";
-        }
-
-
-        function forgotPassword() {
-
-            const message =
-                document.getElementById("message");
-
-            message.innerHTML =
-                "Password recovery will be available after secure authentication is connected.";
-
-            message.style.display = "block";
-        }
+  <form id="f" autocomplete="off" novalidate>
+    <label for="u">Username</label>
+    <input id="u" name="u" type="text" autocomplete="username" required>
+    <label for="p">Password</label>
+    <input id="p" name="p" type="password" autocomplete="current-password" required>
+    <div class="row"><input id="show" type="checkbox"><label for="show" style="margin:0">Show password</label></div>
+    <button id="go" type="submit">Sign in</button>
+    <p id="err" role="alert"></p>
+  </form>
+  <footer>Authorized personnel only. All activity in this session is logged locally.</footer>
+</main>
 
 <script>
-function login() {
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value.trim();
+// If already signed in, skip straight to the dashboard
+if (sessionStorage.getItem('shred_session')) location.replace('dashboard.html');
 
-    if (!email || !password) {
-        alert("Please enter your email and password.");
-        return;
-    }
+const $ = id => document.getElementById(id);
+$('show').onchange = e => $('p').type = e.target.checked ? 'text' : 'password';
 
-    window.location.assign(
-        "https://monishar7483-maker.github.io/SHRED-APP/dashboard.html"
-    );
+/*
+ * IMPORTANT: replace this with a real backend call (e.g. fetch('/api/login')).
+ * Front-end-only checks are NOT real security — anyone can read this file.
+ */
+async function authenticate(user, pass) {
+  await new Promise(r => setTimeout(r, 500));
+  return user.length >= 3 && pass.length >= 8;   // placeholder rule
 }
 
-function forgotPassword() {
-    alert("Password recovery will be added later.");
-}
+$('f').addEventListener('submit', async e => {
+  e.preventDefault();
+  const user = $('u').value.trim(), pass = $('p').value;
+  $('err').textContent = '';
+  if (!user || !pass) { $('err').textContent = 'Enter your username and password.'; return; }
+  $('go').disabled = true; $('go').textContent = 'Verifying…';
+  const ok = await authenticate(user, pass);
+  if (ok) {
+    sessionStorage.setItem('shred_session', JSON.stringify({ user, at: Date.now() }));
+    location.replace('dashboard.html');
+  } else {
+    $('err').textContent = 'Sign-in failed. Use at least 3 characters for username and 8 for password.';
+    $('go').disabled = false; $('go').textContent = 'Sign in';
+  }
+});
 </script>
+</body>
+</html>
