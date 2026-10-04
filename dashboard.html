@@ -1,61 +1,239 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>SHRED SQUADERS</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <style>
-        body {
-            background: #071018;
-            color: white;
-            font-family: Arial;
-            text-align: center;
-            padding: 30px;
-        }
-
-        h1 {
-            color: #19d3ff;
-        }
-
-        .box {
-            background: #121c27;
-            padding: 25px;
-            margin: 20px 0;
-            border-radius: 15px;
-        }
-
-        button {
-            padding: 12px;
-            width: 90%;
-            margin: 8px;
-            border: 0;
-            border-radius: 8px;
-            background: #19d3ff;
-            font-weight: bold;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SHRED-APP · Dashboard</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap">
+<style>
+:root{--ink:#0c1424;--panel:#131e33;--line:#26344f;--ice:#e6edf7;--mute:#8a9ab8;--iris:#7c8cff;--ok:#5ee0a0;--bad:#ff6b5e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--ice);font-family:'Bricolage Grotesque',system-ui,sans-serif;line-height:1.45}
+header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line)}
+header b{font-size:18px;font-weight:800}
+header span{color:var(--mute);font-size:14px}
+header button{background:none;border:1px solid var(--line);color:var(--ice);border-radius:8px;padding:7px 12px;font:inherit;cursor:pointer}
+main{max-width:640px;margin:0 auto;padding:20px 16px 60px}
+h2{font-size:22px;margin:4px 0 4px}
+.lead{color:var(--mute);margin:0 0 18px}
+.opts{display:grid;gap:12px}
+.opt{display:flex;gap:14px;align-items:center;text-align:left;width:100%;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;color:var(--ice);font:inherit;cursor:pointer}
+.opt[aria-pressed=true]{border-color:var(--iris);box-shadow:0 0 0 1px var(--iris)}
+.opt svg{flex:none}
+.opt strong{display:block;font-size:17px}
+.opt small{color:var(--mute);font-size:14px}
+.pane{display:none;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;margin-top:16px}
+.pane.on{display:block}
+label{display:block;font-size:14px;color:var(--mute);margin:12px 0 6px}
+input[type=file],input[type=password],input[type=text]{width:100%;background:var(--ink);border:1px solid var(--line);border-radius:8px;color:var(--ice);font:inherit;padding:11px}
+.act{margin-top:16px;width:100%;background:var(--iris);color:#0c1424;border:0;border-radius:8px;font:inherit;font-weight:800;padding:13px;cursor:pointer}
+.act.danger{background:var(--bad)}
+.act:disabled{opacity:.5}
+input:focus,button:focus-visible{outline:2px solid var(--iris);outline-offset:2px}
+.note{font-size:13.5px;color:var(--mute);margin:10px 0 0}
+.out{margin-top:12px;font-size:14px;word-break:break-all}
+.ok{color:var(--ok)}.bad{color:var(--bad)}
+#log{margin-top:26px}
+#log h3{font-size:16px;margin:0 0 8px}
+#log ol{margin:0;padding:0;list-style:none;font-size:13.5px;color:var(--mute);border:1px solid var(--line);border-radius:10px;max-height:200px;overflow:auto}
+#log li{padding:8px 12px;border-bottom:1px solid var(--line);word-break:break-all}
+#log li:last-child{border:0}
+</style>
 </head>
-
 <body>
+<header>
+  <b>SHRED-APP</b>
+  <span id="who"></span>
+  <button id="out">Sign out</button>
+</header>
 
-<h1>🛡️ SHRED SQUADERS</h1>
+<main>
+  <h2>What do you need to do?</h2>
+  <p class="lead">Choose one action. Files are processed on this device only.</p>
 
-<p>Cybersecurity & Digital Forensics</p>
+  <div class="opts" role="group" aria-label="Actions">
+    <button class="opt" data-pane="recover" aria-pressed="false">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#7c8cff" stroke-width="1.8"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/><path d="M12 8v5l3 2"/></svg>
+      <span><strong>Recover your old file</strong><small>Unlock a .shred file you secured earlier</small></span>
+    </button>
+    <button class="opt" data-pane="secure" aria-pressed="false">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#7c8cff" stroke-width="1.8"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+      <span><strong>Secure your new file</strong><small>Encrypt with AES-256 and a password</small></span>
+    </button>
+    <button class="opt" data-pane="erase" aria-pressed="false">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#ff6b5e" stroke-width="1.8"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg>
+      <span><strong>Erase your existing file</strong><small>Overwrite with random data, then delete</small></span>
+    </button>
+  </div>
 
-<div class="box">
-    <h2>📁 Store Data</h2>
-    <button>STORE DATA</button>
-</div>
+  <!-- RECOVER -->
+  <section class="pane" id="recover">
+    <label for="rf">Secured file (.shred)</label>
+    <input id="rf" type="file" accept=".shred">
+    <label for="rp">Password</label>
+    <input id="rp" type="password" autocomplete="off">
+    <button class="act" id="rgo">Recover file</button>
+    <p class="note">Recovers files secured by this app. It cannot restore files deleted by other means.</p>
+    <div class="out" id="rout"></div>
+  </section>
 
-<div class="box">
-    <h2>♻️ Recover Data</h2>
-    <button>RECOVER DATA</button>
-</div>
+  <!-- SECURE -->
+  <section class="pane" id="secure">
+    <label for="sf">File to secure</label>
+    <input id="sf" type="file">
+    <label for="sp">Password (12+ characters)</label>
+    <input id="sp" type="password" autocomplete="new-password">
+    <label for="sp2">Confirm password</label>
+    <input id="sp2" type="password" autocomplete="new-password">
+    <button class="act" id="sgo">Secure file</button>
+    <p class="note">There is no password reset. If you lose the password, the file cannot be recovered.</p>
+    <div class="out" id="sout"></div>
+  </section>
 
-<div class="box">
-    <h2>🔎 Forensic Search</h2>
-    <button>SEARCH FILE</button>
-</div>
+  <!-- ERASE -->
+  <section class="pane" id="erase">
+    <label for="ef">File to erase</label>
+    <button class="act" id="epick" style="margin-top:0;background:var(--ink);color:var(--ice);border:1px solid var(--line)">Choose file</button>
+    <div class="out" id="einfo">No file chosen.</div>
+    <label for="ec">Type ERASE to confirm</label>
+    <input id="ec" type="text" autocomplete="off">
+    <label for="epass">Overwrite passes</label>
+    <input id="epass" type="text" inputmode="numeric" value="3">
+    <button class="act danger" id="ego" disabled>Erase permanently</button>
+    <p class="note">Erasing cannot be undone. On SSDs and cloud-synced folders, wear-leveling and backups can keep old copies; use full-disk encryption for strong guarantees.</p>
+    <div class="out" id="eout"></div>
+  </section>
 
+  <div id="log"><h3>Session log</h3><ol id="logl"><li>No activity yet.</li></ol></div>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const session = JSON.parse(sessionStorage.getItem('shred_session') || 'null');
+if (!session) location.replace('index.html');
+$('who').textContent = session ? session.user : '';
+$('out').onclick = () => { sessionStorage.removeItem('shred_session'); location.replace('index.html'); };
+
+// Option switching
+document.querySelectorAll('.opt').forEach(b => b.onclick = () => {
+  document.querySelectorAll('.opt').forEach(x => x.setAttribute('aria-pressed', x === b));
+  document.querySelectorAll('.pane').forEach(p => p.classList.toggle('on', p.id === b.dataset.pane));
+  $(b.dataset.pane).scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+// Helpers
+const enc = new TextEncoder(), dec = new TextDecoder();
+const hex = buf => [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
+const sha256 = async buf => hex(await crypto.subtle.digest('SHA-256', buf));
+let logFirst = true;
+function log(msg) {
+  const ol = $('logl');
+  if (logFirst) { ol.innerHTML = ''; logFirst = false; }
+  const li = document.createElement('li');
+  li.textContent = new Date().toISOString().slice(11, 19) + '  ' + msg;
+  ol.prepend(li);
+}
+function say(id, msg, cls) { const o = $(id); o.className = 'out ' + (cls || ''); o.textContent = msg; }
+function download(bytes, name) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([bytes]));
+  a.download = name; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+async function deriveKey(pass, salt) {
+  const base = await crypto.subtle.importKey('raw', enc.encode(pass), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey({ name: 'PBKDF2', salt, iterations: 310000, hash: 'SHA-256' },
+    base, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+}
+
+// File layout: "SHRD1" | salt(16) | iv(12) | nameLen(2) | name | ciphertext
+const MAGIC = enc.encode('SHRD1');
+
+// SECURE
+$('sgo').onclick = async () => {
+  const file = $('sf').files[0], p = $('sp').value;
+  if (!file) return say('sout', 'Choose a file first.', 'bad');
+  if (p.length < 12) return say('sout', 'Use a password of at least 12 characters.', 'bad');
+  if (p !== $('sp2').value) return say('sout', 'Passwords do not match.', 'bad');
+  $('sgo').disabled = true; say('sout', 'Encrypting…');
+  try {
+    const data = await file.arrayBuffer();
+    const salt = crypto.getRandomValues(new Uint8Array(16)), iv = crypto.getRandomValues(new Uint8Array(12));
+    const name = enc.encode(file.name);
+    const ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, await deriveKey(p, salt), data));
+    const out = new Uint8Array(5 + 16 + 12 + 2 + name.length + ct.length);
+    let o = 0;
+    [MAGIC, salt, iv, new Uint8Array([name.length >> 8, name.length & 255]), name, ct].forEach(part => { out.set(part, o); o += part.length; });
+    const h = await sha256(data);
+    download(out, file.name + '.shred');
+    say('sout', 'Secured. Original SHA-256: ' + h, 'ok');
+    log('SECURED ' + file.name + ' (sha256 ' + h.slice(0, 16) + '…)');
+  } catch (e) { say('sout', 'Could not secure this file: ' + e.message, 'bad'); }
+  $('sgo').disabled = false;
+};
+
+// RECOVER
+$('rgo').onclick = async () => {
+  const file = $('rf').files[0], p = $('rp').value;
+  if (!file) return say('rout', 'Choose a .shred file first.', 'bad');
+  if (!p) return say('rout', 'Enter the password.', 'bad');
+  $('rgo').disabled = true; say('rout', 'Decrypting…');
+  try {
+    const b = new Uint8Array(await file.arrayBuffer());
+    if (dec.decode(b.slice(0, 5)) !== 'SHRD1') throw new Error('Not a SHRED-APP file.');
+    const salt = b.slice(5, 21), iv = b.slice(21, 33), nl = (b[33] << 8) | b[34];
+    const name = dec.decode(b.slice(35, 35 + nl)), ct = b.slice(35 + nl);
+    const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, await deriveKey(p, salt), ct);
+    const h = await sha256(pt);
+    download(pt, name);
+    say('rout', 'Recovered ' + name + '. SHA-256: ' + h, 'ok');
+    log('RECOVERED ' + name + ' (sha256 ' + h.slice(0, 16) + '…)');
+  } catch (e) {
+    say('rout', e.name === 'OperationError' ? 'Wrong password or the file was altered.' : e.message, 'bad');
+  }
+  $('rgo').disabled = false;
+};
+
+// ERASE (needs File System Access API: desktop Chrome / Edge)
+let handle = null;
+const canErase = 'showOpenFilePicker' in window;
+if (!canErase) $('einfo').textContent = 'This browser cannot overwrite files in place. Use Chrome or Edge on a computer.';
+$('epick').onclick = async () => {
+  if (!canErase) return;
+  try {
+    [handle] = await showOpenFilePicker({ multiple: false });
+    const f = await handle.getFile();
+    $('einfo').textContent = f.name + ' (' + f.size.toLocaleString() + ' bytes)';
+    check();
+  } catch (_) { /* cancelled */ }
+};
+const check = () => $('ego').disabled = !(handle && $('ec').value === 'ERASE');
+$('ec').oninput = check;
+$('ego').onclick = async () => {
+  const passes = Math.min(10, Math.max(1, parseInt($('epass').value) || 3));
+  $('ego').disabled = true;
+  try {
+    const f = await handle.getFile(), size = f.size, name = f.name;
+    if (await handle.requestPermission({ mode: 'readwrite' }) !== 'granted') throw new Error('Write permission denied.');
+    for (let i = 1; i <= passes; i++) {
+      const w = await handle.createWritable({ keepExistingData: false });
+      for (let off = 0; off < size; off += 1 << 20) {
+        const chunk = new Uint8Array(Math.min(1 << 20, size - off));
+        for (let k = 0; k < chunk.length; k += 65536) crypto.getRandomValues(chunk.subarray(k, k + 65536));
+        await w.write(chunk);
+      }
+      await w.close();
+      say('eout', 'Pass ' + i + ' of ' + passes + ' done…');
+    }
+    const w = await handle.createWritable({ keepExistingData: false }); await w.close(); // truncate to 0
+    let removed = false;
+    if (handle.remove) { await handle.remove(); removed = true; }
+    say('eout', removed ? 'Erased and deleted ' + name + '.' : 'Contents of ' + name + ' overwritten. Delete the empty file manually.', 'ok');
+    log('ERASED ' + name + ' (' + passes + ' passes)');
+    handle = null; $('einfo').textContent = 'No file chosen.'; $('ec').value = '';
+  } catch (e) { say('eout', 'Erase failed: ' + e.message, 'bad'); }
+  check();
+};
+</script>
 </body>
 </html>
