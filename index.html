@@ -318,16 +318,22 @@
             message.style.display = "block";
         }
 
-    <script>
+<script>
 function login() {
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
 
-    if (email === "" || password === "") {
-        alert("Please enter email and password");
+    if (!email || !password) {
+        alert("Please enter your email and password.");
         return;
     }
 
-    window.location.href = "./dashboard.html";
+    window.location.assign(
+        "https://monishar7483-maker.github.io/SHRED-APP/dashboard.html"
+    );
+}
+
+function forgotPassword() {
+    alert("Password recovery will be added later.");
 }
 </script>
