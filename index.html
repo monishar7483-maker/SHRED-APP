@@ -324,15 +324,14 @@
 </html>
 <script>
 function login() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
 
     if (email === "" || password === "") {
-        alert("Please enter your email and password.");
+        alert("Please enter email and password");
         return;
     }
 
-    // Temporary demo login
     window.location.href = "dashboard.html";
 }
 </script>
